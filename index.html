@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>우유니 | AI 영상 콘텐츠 제작 전문가</title>
+  <meta name="description" content="생성형 AI 기반 영상 콘텐츠 실무 교육 전문가 우유니. 디자인 실무 기반 AI 영상 콘텐츠 제작 교육." />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --dark: #0a0d1a;
+      --dark2: #111527;
+      --dark3: #1a1f35;
+      --navy: #0d2d6e;
+      --blue: #1a4dbf;
+      --blue-light: #3b6fd4;
+      --gold: #c9952a;
+      --gold-light: #e8b84b;
+      --white: #ffffff;
+      --gray: #9aa3b8;
+      --light: #f0f4ff;
+      --card-bg: #141828;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 13, 26, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 2px;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 700 !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 70% 50%, rgba(26, 77, 191, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(201, 149, 42, 0.08) 0%, transparent 50%),
+                  var(--dark);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(26, 77, 191, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 77, 191, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(201, 149, 42, 0.4);
+      color: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+      background: rgba(201, 149, 42, 0.07);
+    }
+
+    .hero-title {
+      font-size: 3.4rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .hero-title .accent { color: var(--gold-light); }
+    .hero-title .blue { color: #6b9fff; }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--gray);
+      line-height: 1.9;
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 24px rgba(201, 149, 42, 0.4);
+    }
+
+    .btn-gold:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .hero-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border: 3px solid rgba(201, 149, 42, 0.4);
+    }
+
+    .hero-name {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 6px;
+      margin-bottom: 8px;
+    }
+
+    .hero-role {
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 16px 8px;
+    }
+
+    .stat-num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--gold-light);
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 100px 40px; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+
+    .section-chip {
+      display: inline-block;
+      background: rgba(26, 77, 191, 0.15);
+      border: 1px solid rgba(26, 77, 191, 0.4);
+      color: #6b9fff;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      color: var(--gray);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--dark2); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-desc {
+      color: var(--gray);
+      line-height: 2;
+      margin-bottom: 32px;
+      font-size: 1rem;
+    }
+
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .tag {
+      background: rgba(26, 77, 191, 0.15);
+      border: 1px solid rgba(26, 77, 191, 0.35);
+      color: #6b9fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .about-activities { display: flex; flex-direction: column; gap: 16px; }
+
+    .activity-item {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+
+    .activity-item:hover { border-color: rgba(201, 149, 42, 0.3); }
+
+    .act-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .act-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+    .act-sub { font-size: 0.8rem; color: var(--gray); }
+
+    /* ── EDUCATION ── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .edu-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 36px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+    }
+
+    .edu-card.gold::before {
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .edu-card:hover { border-color: rgba(107, 159, 255, 0.3); transform: translateY(-4px); }
+
+    .edu-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .edu-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
+    .edu-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.8; }
+
+    /* ── PORTFOLIO ── */
+    .portfolio { background: var(--dark2); }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .port-item {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.2s;
+    }
+
+    .port-item:hover { transform: scale(1.02); }
+
+    .port-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .port-thumb.t1 { background: linear-gradient(135deg, #1a1f35, #0d2d6e); }
+    .port-thumb.t2 { background: linear-gradient(135deg, #1a1035, #3b1fa0); }
+    .port-thumb.t3 { background: linear-gradient(135deg, #1a2a10, #2a6020); }
+    .port-thumb.t4 { background: linear-gradient(135deg, #2a1010, #801515); }
+    .port-thumb.t5 { background: linear-gradient(135deg, #2a2010, #806020); }
+    .port-thumb.t6 { background: linear-gradient(135deg, #101a2a, #0d4060); }
+
+    .port-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(0,0,0,0.6);
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(201, 149, 42, 0.3);
+    }
+
+    .port-info { padding: 16px 18px; }
+    .port-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .port-sub { font-size: 0.78rem; color: var(--gray); }
+
+    /* ── CURRICULUM ── */
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .week-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 28px 22px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .week-card:hover { border-color: rgba(201, 149, 42, 0.4); }
+
+    .week-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .week-title { font-size: 1rem; font-weight: 800; margin-bottom: 12px; line-height: 1.4; }
+
+    .week-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+    .week-items li {
+      font-size: 0.82rem;
+      color: var(--gray);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .week-items li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--blue-light);
+      font-size: 0.7rem;
+      top: 2px;
+    }
+
+    .week-line {
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      width: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(201,149,42,0.4), transparent);
+    }
+
+    /* ── REVIEWS ── */
+    .reviews { background: var(--dark2); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+
+    .review-card:hover { border-color: rgba(201, 149, 42, 0.3); }
+
+    .review-stars { color: var(--gold-light); font-size: 1rem; margin-bottom: 14px; letter-spacing: 2px; }
+
+    .review-text {
+      font-size: 0.9rem;
+      color: #cdd5e8;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .review-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .review-name { font-size: 0.85rem; font-weight: 700; }
+    .review-info { font-size: 0.75rem; color: var(--gray); }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .faq-q {
+      padding: 20px 24px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: color 0.2s;
+      user-select: none;
+    }
+
+    .faq-q:hover { color: var(--gold-light); }
+
+    .faq-arrow {
+      font-size: 0.8rem;
+      color: var(--gray);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    .faq-a-inner {
+      padding: 0 24px 20px;
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.9;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 16px;
+    }
+
+    /* ── AWARDS ── */
+    .awards { background: var(--dark3); }
+
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .award-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201, 149, 42, 0.2);
+      border-radius: 16px;
+      padding: 28px 20px;
+      text-align: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .award-card:hover {
+      background: rgba(201, 149, 42, 0.06);
+      border-color: rgba(201, 149, 42, 0.4);
+    }
+
+    .award-icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .award-name { font-size: 0.85rem; color: #cdd5e8; font-weight: 600; line-height: 1.6; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--dark2); }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info h3 { font-size: 1.6rem; font-weight: 900; margin-bottom: 16px; }
+    .contact-info p { color: var(--gray); line-height: 1.9; margin-bottom: 32px; font-size: 0.95rem; }
+
+    .contact-features { display: flex; flex-direction: column; gap: 14px; }
+
+    .cf-item { display: flex; gap: 12px; align-items: flex-start; }
+
+    .cf-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(26, 77, 191, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .cf-text { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+    .cf-text strong { color: var(--white); font-weight: 700; display: block; margin-bottom: 2px; }
+
+    .contact-form {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 40px 36px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #9aa3b8;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 0.93rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #4a5270; }
+
+    .form-group select option { background: var(--dark2); }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--blue-light); }
+
+    .form-group textarea { height: 110px; resize: vertical; }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.2s, transform 0.2s;
+      margin-top: 6px;
+      box-shadow: 0 4px 20px rgba(201, 149, 42, 0.3);
+    }
+
+    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    footer .f-name { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    footer .f-role { color: var(--gold); font-size: 0.82rem; margin-bottom: 16px; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-title { font-size: 2.2rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .curriculum-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      section { padding: 70px 20px; }
+    }
+
+    @media (max-width: 500px) {
+      .hero-title { font-size: 1.8rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .curriculum-grid { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">우유니 <span>AI</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">소개</a></li>
+      <li><a href="#education">강의</a></li>
+      <li><a href="#portfolio">포트폴리오</a></li>
+      <li><a href="#curriculum">커리큘럼</a></li>
+      <li><a href="#reviews">후기</a></li>
+      <li><a href="#contact" class="nav-cta">문의하기</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag">✦ AI 시대, 콘텐츠로 승부하라</div>
+        <h1 class="hero-title">
+          <span class="accent">생성형 AI</span> 기반<br>
+          영상 콘텐츠 <span class="blue">실무 교육</span><br>
+          전문가
+        </h1>
+        <p class="hero-desc">
+          디자인 실무 경험과 AI 기술을 결합한 교육으로<br>
+          누구나 실제 결과물을 만들어낼 수 있도록 돕습니다.<br>
+          이론이 아닌, 현장에서 바로 쓰이는 교육을 제공합니다.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn-gold">강의 문의하기</a>
+          <a href="#curriculum" class="btn-outline">커리큘럼 보기</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-avatar">👩‍💼</div>
+        <div class="hero-name">우 유 니</div>
+        <div class="hero-role">생성형 AI 교육지도사 &nbsp;|&nbsp; NCS 확인 강사</div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">200+</div>
+            <div class="stat-label">누적 수강생</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">소속 기관</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">대상</div>
+            <div class="stat-label">강사 경진대회</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4.9</div>
+            <div class="stat-label">수강생 만족도</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="reveal">
+          <div class="section-chip">ABOUT</div>
+          <h2 class="section-title" style="text-align:left">AI 교육으로<br>현장을 바꿉니다</h2>
+          <p class="about-desc">
+            생성형 AI 기반 교육 콘텐츠 기획 및 개발을 통해 학습자가 실제 결과물을 만들어낼 수 있는 실습 중심 교육을 설계하고 운영합니다.<br><br>
+            기업·기관·학교를 대상으로 맞춤형 AI 교육을 제공하며, 디자인 실무 감각을 바탕으로 영상 콘텐츠 제작 교육에 특화되어 있습니다.
+          </p>
+          <div class="about-tags">
+            <span class="tag">생성형 AI</span>
+            <span class="tag">영상 콘텐츠 제작</span>
+            <span class="tag">SNS 콘텐츠</span>
+            <span class="tag">광고 영상</span>
+            <span class="tag">AI 리터러시</span>
+            <span class="tag">그래픽 디자인</span>
+          </div>
+        </div>
+        <div class="about-activities reveal" style="transition-delay: 0.15s">
+          <div class="activity-item">
+            <div class="act-icon">🖥️</div>
+            <div>
+              <div class="act-title">생성형 AI 교육 강사</div>
+              <div class="act-sub">기업, 기관, 학교 대상 실무 중심 강의</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-icon">🤝</div>
+            <div>
+              <div class="act-title">한국 AI 리터러시 강사 협회 이사</div>
+              <div class="act-sub">AI 리터러시 확산 및 교육 콘텐츠 개발</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-icon">📚</div>
+            <div>
+              <div class="act-title">MBC아카데미컴퓨터학원</div>
+              <div class="act-sub">그래픽 디자인 및 AI 활용 강의</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="act-icon">✏️</div>
+            <div>
+              <div class="act-title">디지털융합교육원 지도교수</div>
+              <div class="act-sub">선임 연구원 · AI 교육·콘텐츠 기획 및 연구</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">EDUCATION</div>
+        <h2 class="section-title">제공 강의 영역</h2>
+        <p class="section-sub">현장에서 바로 적용 가능한 실무 중심 커리큘럼</p>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <div class="edu-icon">🎬</div>
+          <div class="edu-title">AI 영상 콘텐츠 제작 기초</div>
+          <div class="edu-desc">생성형 AI 툴을 활용한 영상 콘텐츠 제작의 기초. 프롬프트 작성부터 영상 편집까지 실습 중심으로 배웁니다.</div>
+        </div>
+        <div class="edu-card gold reveal" style="transition-delay:0.1s">
+          <div class="edu-icon">📱</div>
+          <div class="edu-title">광고 영상 & SNS 콘텐츠 제작</div>
+          <div class="edu-desc">인스타그램, 유튜브 쇼츠 등 SNS 플랫폼에 최적화된 광고 영상 및 콘텐츠 제작 실무 교육.</div>
+        </div>
+        <div class="edu-card reveal" style="transition-delay:0.2s">
+          <div class="edu-icon">🤖</div>
+          <div class="edu-title">생성형 AI 영상 제작 심화</div>
+          <div class="edu-desc">Sora, RunwayML 등 최신 AI 영상 생성 툴 활용. 실제 프로젝트 기반 심화 제작 과정.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">PORTFOLIO</div>
+        <h2 class="section-title">수강생 작업 결과물</h2>
+        <p class="section-sub">실습 교육을 통해 탄생한 실제 결과물들</p>
+      </div>
+      <div class="portfolio-grid">
+        <div class="port-item reveal">
+          <div class="port-thumb t1"><span class="port-badge">AI 영상</span>🎥</div>
+          <div class="port-info">
+            <div class="port-title">브랜드 홍보 영상</div>
+            <div class="port-sub">Runway ML · AI 생성 영상</div>
+          </div>
+        </div>
+        <div class="port-item reveal" style="transition-delay:0.1s">
+          <div class="port-thumb t2"><span class="port-badge">SNS</span>📱</div>
+          <div class="port-info">
+            <div class="port-title">인스타그램 릴스 콘텐츠</div>
+            <div class="port-sub">SNS 콘텐츠 · 숏폼 영상</div>
+          </div>
+        </div>
+        <div class="port-item reveal" style="transition-delay:0.2s">
+          <div class="port-thumb t3"><span class="port-badge">광고</span>🎯</div>
+          <div class="port-info">
+            <div class="port-title">제품 광고 영상</div>
+            <div class="port-sub">광고 영상 · AI 편집</div>
+          </div>
+        </div>
+        <div class="port-item reveal" style="transition-delay:0.1s">
+          <div class="port-thumb t4"><span class="port-badge">디자인</span>🎨</div>
+          <div class="port-info">
+            <div class="port-title">썸네일 & 카드뉴스</div>
+            <div class="port-sub">그래픽 디자인 · AI 보정</div>
+          </div>
+        </div>
+        <div class="port-item reveal" style="transition-delay:0.2s">
+          <div class="port-thumb t5"><span class="port-badge">Before/After</span>✨</div>
+          <div class="port-info">
+            <div class="port-title">Before / After 영상 편집</div>
+            <div class="port-sub">AI 업스케일 · 색보정</div>
+          </div>
+        </div>
+        <div class="port-item reveal" style="transition-delay:0.3s">
+          <div class="port-thumb t6"><span class="port-badge">유튜브</span>▶️</div>
+          <div class="port-info">
+            <div class="port-title">유튜브 쇼츠 제작</div>
+            <div class="port-sub">숏폼 · AI 자막 · 썸네일</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">CURRICULUM</div>
+        <h2 class="section-title">4주 완성 커리큘럼</h2>
+        <p class="section-sub">단계별로 쌓아가는 AI 영상 콘텐츠 제작 역량</p>
+      </div>
+      <div class="curriculum-grid">
+        <div class="week-card reveal">
+          <div class="week-num">WEEK 01</div>
+          <div class="week-title">생성형 AI 이해 & 프롬프트 기초</div>
+          <ul class="week-items">
+            <li>생성형 AI 개념 및 활용 현황</li>
+            <li>ChatGPT·Gemini 프롬프트 작성법</li>
+            <li>AI 툴 비교 및 선택 기준</li>
+            <li>실습: 텍스트 → 이미지 생성</li>
+          </ul>
+        </div>
+        <div class="week-card reveal" style="transition-delay:0.1s">
+          <div class="week-num">WEEK 02</div>
+          <div class="week-title">AI 기반 영상 생성 실습</div>
+          <ul class="week-items">
+            <li>Runway ML·Sora 활용법</li>
+            <li>AI 영상 생성 프롬프트 전략</li>
+            <li>영상 편집 기초 (컷, 자막)</li>
+            <li>실습: 30초 AI 영상 제작</li>
+          </ul>
+        </div>
+        <div class="week-card reveal" style="transition-delay:0.2s">
+          <div class="week-num">WEEK 03</div>
+          <div class="week-title">광고·SNS 콘텐츠 제작</div>
+          <ul class="week-items">
+            <li>SNS 플랫폼별 영상 규격</li>
+            <li>광고 영상 스토리보드 작성</li>
+            <li>썸네일·카드뉴스 디자인</li>
+            <li>실습: 인스타그램 릴스 제작</li>
+          </ul>
+        </div>
+        <div class="week-card reveal" style="transition-delay:0.3s">
+          <div class="week-num">WEEK 04</div>
+          <div class="week-title">실전 프로젝트 제작</div>
+          <ul class="week-items">
+            <li>개인 브랜드 영상 기획</li>
+            <li>A to Z 영상 제작 실습</li>
+            <li>피드백 및 수정 실습</li>
+            <li>최종 발표 및 포트폴리오 완성</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section class="awards">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">AWARDS</div>
+        <h2 class="section-title">수상 및 자격</h2>
+      </div>
+      <div class="awards-grid">
+        <div class="award-card reveal">
+          <div class="award-icon">🥇</div>
+          <div class="award-name">강사 경진대회<br>'대상'</div>
+        </div>
+        <div class="award-card reveal" style="transition-delay:0.1s">
+          <div class="award-icon">🎖️</div>
+          <div class="award-name">대한민국 AI 영상제<br>최우수상</div>
+        </div>
+        <div class="award-card reveal" style="transition-delay:0.2s">
+          <div class="award-icon">🎨</div>
+          <div class="award-name">GTQ 그래픽마스터<br>(KPC)</div>
+        </div>
+        <div class="award-card reveal" style="transition-delay:0.3s">
+          <div class="award-icon">📋</div>
+          <div class="award-name">생성형 AI 교육지도사<br>NCS 확인 강사</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">REVIEWS</div>
+        <h2 class="section-title">수강생 후기</h2>
+        <p class="section-sub">실제 수강생들이 전하는 생생한 이야기</p>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">
+            "AI에 대해 아무것도 몰랐는데 4주 만에 실제 광고 영상을 만들었습니다. 선생님이 실무 위주로 가르쳐 주셔서 수업 내용을 바로 업무에 적용할 수 있었어요."
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">😊</div>
+            <div>
+              <div class="review-name">김○○님</div>
+              <div class="review-info">마케터 · AI 영상 콘텐츠 기초 수강</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal" style="transition-delay:0.1s">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">
+            "디자인은 할 줄 알았는데 영상은 처음이었어요. AI 툴을 활용하니 생각보다 훨씬 빠르게 퀄리티 있는 결과물을 만들 수 있었습니다. 강의력이 정말 뛰어나세요!"
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">🙋</div>
+            <div>
+              <div class="review-name">이○○님</div>
+              <div class="review-info">프리랜서 디자이너 · SNS 콘텐츠 수강</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card reveal" style="transition-delay:0.2s">
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text">
+            "기업 직원 교육으로 도입했는데 반응이 폭발적이었습니다. 실무에 바로 적용 가능한 커리큘럼과 꼼꼼한 피드백 덕분에 팀 전체 역량이 올라갔어요."
+          </div>
+          <div class="review-author">
+            <div class="review-avatar">👔</div>
+            <div>
+              <div class="review-name">박○○님</div>
+              <div class="review-info">기업 교육 담당자 · 기업 맞춤 강의</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">FAQ</div>
+        <h2 class="section-title">자주 묻는 질문</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            AI나 영상 편집을 전혀 몰라도 수강할 수 있나요?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">네, 완전 이보자도 수강 가능합니다. 기초 과정은 AI와 영상 편집의 개념부터 시작하며, 실습 중심으로 진행되어 따라가다 보면 자연스럽게 결과물을 만들 수 있습니다.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal" style="transition-delay:0.1s">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            특별한 장비나 소프트웨어가 필요한가요?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">기본적인 노트북(윈도우/맥 모두 가능)만 있으면 됩니다. 수업에서 활용하는 AI 툴은 대부분 무료 또는 무료 체험판으로 진행되며, 필요한 소프트웨어는 사전에 안내해 드립니다.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal" style="transition-delay:0.2s">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            수업 방식은 어떻게 되나요? 온라인/오프라인 모두 가능한가요?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">온라인(Zoom)과 오프라인 모두 진행 가능합니다. 기업/기관 대상 출강 교육도 가능하며, 일정과 장소는 협의 후 결정합니다. 개인 수강의 경우 온라인 위주로 진행됩니다.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal" style="transition-delay:0.3s">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            기업/기관 단체 교육도 가능한가요?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">네, 기업·기관·학교를 대상으로 맞춤형 단체 교육을 제공합니다. 인원, 교육 목적, 기간에 맞게 커리큘럼을 커스터마이징해 드립니다. 문의 폼을 통해 상담 신청해 주세요.</div>
+          </div>
+        </div>
+        <div class="faq-item reveal" style="transition-delay:0.4s">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            수강 후 포트폴리오를 만들 수 있나요?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-a">
+            <div class="faq-a-inner">네! 4주 과정을 마치면 실제 활용 가능한 영상 콘텐츠 포트폴리오가 완성됩니다. 마지막 주차에는 개인 브랜드에 맞는 최종 프로젝트를 완성하고 피드백을 받는 과정이 포함되어 있습니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-chip">CONTACT</div>
+        <h2 class="section-title">강의 문의</h2>
+        <p class="section-sub">아래 양식을 작성해 주시면 빠르게 연락드리겠습니다</p>
+      </div>
+      <div class="contact-inner">
+        <div class="reveal">
+          <h3>지금 바로<br>시작하세요</h3>
+          <p>AI 시대, 콘텐츠 경쟁력이 곧 나의 경쟁력입니다. 개인부터 기업까지 맞춤형 AI 영상 교육으로 즉시 활용 가능한 역량을 키워드립니다.</p>
+          <div class="contact-features">
+            <div class="cf-item">
+              <div class="cf-icon">⚡</div>
+              <div class="cf-text">
+                <strong>빠른 답변</strong>
+                문의 후 24시간 내 답변 드립니다
+              </div>
+            </div>
+            <div class="cf-item">
+              <div class="cf-icon">🎯</div>
+              <div class="cf-text">
+                <strong>맞춤 커리큘럼</strong>
+                대상과 목적에 맞게 커스터마이징
+              </div>
+            </div>
+            <div class="cf-item">
+              <div class="cf-icon">🏢</div>
+              <div class="cf-text">
+                <strong>기업 출강 가능</strong>
+                전국 기업·기관·학교 출강 교육 진행
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form reveal" style="transition-delay:0.15s">
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label>이름 *</label>
+              <input type="text" placeholder="이름을 입력해 주세요" required />
+            </div>
+            <div class="form-group">
+              <label>연락처 *</label>
+              <input type="tel" placeholder="010-0000-0000" required />
+            </div>
+            <div class="form-group">
+              <label>소속</label>
+              <input type="text" placeholder="기업 · 기관 · 학교 · 개인" />
+            </div>
+            <div class="form-group">
+              <label>관심 강의 *</label>
+              <select required>
+                <option value="">선택해 주세요</option>
+                <option>AI 영상 콘텐츠 제작 기초</option>
+                <option>광고 영상 & SNS 콘텐츠 제작</option>
+                <option>생성형 AI 영상 제작 심화</option>
+                <option>기업/기관 단체 교육</option>
+                <option>기타 (직접 설명)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>문의 내용</label>
+              <textarea placeholder="교육 목적, 인원, 희망 일정 등을 적어주세요"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">문의 보내기 →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-name">오 영 주</div>
+    <div class="f-role">생성형 AI 교육지도사 · NCS 확인 강사 · AI 영상 콘텐츠 제작 전문가</div>
+    <p>© 2025 우유니. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // FAQ toggle
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('문의가 접수되었습니다!\n24시간 내에 연락 드리겠습니다. 감사합니다 :)');
+      e.target.reset();
+    }
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>
