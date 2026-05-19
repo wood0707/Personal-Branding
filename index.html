@@ -1044,13 +1044,13 @@
       <div class="modal-right">
         <form onsubmit="handleSubmit(event)">
           <div class="form-row">
-            <div class="fg"><label>이름 *</label><input type="text" placeholder="홍길동" required /></div>
-            <div class="fg"><label>연락처 *</label><input type="tel" placeholder="010-0000-0000" required /></div>
+            <div class="fg"><label>이름 *</label><input name="name" type="text" placeholder="홍길동" required /></div>
+            <div class="fg"><label>연락처 *</label><input name="phone" type="tel" placeholder="010-0000-0000" required /></div>
           </div>
-          <div class="fg"><label>소속</label><input type="text" placeholder="기업 · 기관 · 학교 · 개인" /></div>
+          <div class="fg"><label>소속</label><input name="organization" type="text" placeholder="기업 · 기관 · 학교 · 개인" /></div>
           <div class="fg">
             <label>관심 프로그램 *</label>
-            <select required>
+            <select name="program" required>
               <option value="">선택해 주세요</option>
               <option>학교 & 청소년 교육</option>
               <option>기업 & 실무자 교육</option>
@@ -1059,7 +1059,7 @@
               <option>기타</option>
             </select>
           </div>
-          <div class="fg"><label>문의 내용</label><textarea placeholder="교육 목적, 인원, 희망 일정 등을 자유롭게 적어주세요"></textarea></div>
+          <div class="fg"><label>문의 내용</label><textarea name="message" placeholder="교육 목적, 인원, 희망 일정 등을 자유롭게 적어주세요"></textarea></div>
           <button type="submit" class="submit">문의 보내기 →</button>
         </form>
       </div>
@@ -1075,7 +1075,14 @@
   <p>© 2025 Stella (오영주). All rights reserved.</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  const { createClient } = supabase;
+  const sb = createClient(
+    'https://wxcxmeweevgafzhkgazl.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4Y3htZXdlZXZnYWZ6aGtnYXpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODM3ODAsImV4cCI6MjA5NDI1OTc4MH0.D7zaq9ZQCtwim9GPD03R3NokEL48j4jYtF6zkYR2noA'
+  );
+
   // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
@@ -1103,12 +1110,36 @@
     if (e.key === 'Escape') closeModalBtn();
   });
 
-  // Form submit
-  function handleSubmit(e) {
+  // Form submit → Supabase
+  async function handleSubmit(e) {
     e.preventDefault();
+    const form = e.target;
+    const submitBtn = form.querySelector('.submit');
+    const fd = new FormData(form);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '전송 중...';
+
+    const { error } = await sb.from('contact_submissions').insert({
+      name:         fd.get('name'),
+      phone:        fd.get('phone'),
+      organization: fd.get('organization') || null,
+      program:      fd.get('program'),
+      message:      fd.get('message') || null,
+    });
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = '문의 보내기 →';
+
+    if (error) {
+      console.error('Supabase error:', error);
+      alert('전송 중 오류가 발생했습니다. 다시 시도해 주세요.\n' + error.message);
+      return;
+    }
+
+    form.reset();
     closeModalBtn();
     setTimeout(() => alert('문의가 접수되었습니다!\n24시간 내에 연락 드리겠습니다 :)'), 200);
-    e.target.reset();
   }
 
   // Smooth scroll + modal trigger
