@@ -1075,13 +1075,9 @@
   <p>© 2025 Stella (오영주). All rights reserved.</p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const { createClient } = supabase;
-  const sb = createClient(
-    'https://wxcxmeweevgafzhkgazl.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4Y3htZXdlZXZnYWZ6aGtnYXpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODM3ODAsImV4cCI6MjA5NDI1OTc4MH0.D7zaq9ZQCtwim9GPD03R3NokEL48j4jYtF6zkYR2noA'
-  );
+  const SUPABASE_URL = 'https://wxcxmeweevgafzhkgazl.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4Y3htZXdlZXZnYWZ6aGtnYXpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODM3ODAsImV4cCI6MjA5NDI1OTc4MH0.D7zaq9ZQCtwim9GPD03R3NokEL48j4jYtF6zkYR2noA';
 
   // Scroll reveal
   const observer = new IntersectionObserver(entries => {
@@ -1110,7 +1106,7 @@
     if (e.key === 'Escape') closeModalBtn();
   });
 
-  // Form submit → Supabase
+  // Form submit → Supabase REST API
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -1120,26 +1116,39 @@
     submitBtn.disabled = true;
     submitBtn.textContent = '전송 중...';
 
-    const { error } = await sb.from('contact_submissions').insert({
-      name:         fd.get('name'),
-      phone:        fd.get('phone'),
-      organization: fd.get('organization') || null,
-      program:      fd.get('program'),
-      message:      fd.get('message') || null,
-    });
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          name:         fd.get('name'),
+          phone:        fd.get('phone'),
+          organization: fd.get('organization') || null,
+          program:      fd.get('program'),
+          message:      fd.get('message') || null,
+        }),
+      });
 
-    submitBtn.disabled = false;
-    submitBtn.textContent = '문의 보내기 →';
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || '전송 실패');
+      }
 
-    if (error) {
-      console.error('Supabase error:', error);
-      alert('전송 중 오류가 발생했습니다. 다시 시도해 주세요.\n' + error.message);
-      return;
+      form.reset();
+      closeModalBtn();
+      setTimeout(() => alert('문의가 접수되었습니다!\n24시간 내에 연락 드리겠습니다 :)'), 200);
+    } catch (err) {
+      console.error('Supabase error:', err);
+      alert('전송 중 오류가 발생했습니다. 다시 시도해 주세요.\n' + err.message);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '문의 보내기 →';
     }
-
-    form.reset();
-    closeModalBtn();
-    setTimeout(() => alert('문의가 접수되었습니다!\n24시간 내에 연락 드리겠습니다 :)'), 200);
   }
 
   // Smooth scroll + modal trigger
